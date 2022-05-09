@@ -91,4 +91,39 @@ public class Labirinto {
     public int getQtdColunas() {
         return qtdColunas;
     }
+
+    // Obtenho o inicio do labirinto percorrendo a matriz e encontrando o char E, por padrão sempre começa em 0-0 e no segundo array na primeira chamada([0])
+    public int[] inicioLabirinto(){
+        int[] volta = {0,0};
+        for (int i = 0; i < labirinto.length; i++){
+            for (int j = 0; j < labirinto[0].length; j++){
+                if (labirinto[i][j] == 'E'){
+                    volta[0] = i;
+                    volta[1] = j;
+                }
+            }
+        }
+        return  volta;
+    }
+
+    // Novamente obtenho o fim do labirinto percorrendo a matriz e encontrando o char S, por padrão sempre começa em 0-0 e no segundo array na primeira chamada([0])
+    public int[] fimLabirinto(){
+        int[] volta = {0,0};
+        for (int i = 0; i < labirinto.length; i++){
+            for (int j = 0; j < labirinto[0].length; j++){
+                if (labirinto[i][j] == 'S'){
+                    volta[0] = i;
+                    volta[1] = j;
+                }
+            }
+        }
+        return volta ;
+    }
+
+    // Método para registrar o histórico de coordenada - ...
+    public void historicoDeCoordenada(){
+
+
+
+    }
 }

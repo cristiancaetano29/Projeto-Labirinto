@@ -17,15 +17,9 @@ public class Arquivo {
         String ret = null;
         try {
             ret = reader.readLine();
-            /*
-
-            for(int i=0; i < reader.toString().length(); i++){
-                ret += reader.readLine();
-
-             */
         }
         catch (IOException erro)
-        { }
+        {  }
 
         return ret;
     }

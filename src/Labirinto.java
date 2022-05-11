@@ -120,10 +120,77 @@ public class Labirinto {
         return volta ;
     }
 
-    // Método para registrar o histórico de coordenada - ...
-    public void historicoDeCoordenada(){
+    //Arrumando os Métodos acima
+    public boolean temSaida(){
+        for (int i = 0; i < labirinto.length; i++){
+            for (int j = 0; j < labirinto.length; j++){
+                if (labirinto[i][j] == 'S'){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean temEntrada(){
+        for (int i = 0; i < labirinto.length; i++){
+            for (int j = 0; j < labirinto.length; j++){
+                if (labirinto[i][j] == 'E'){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //Verificar a quantidade de entradas e saidas
+    public boolean qtdEntradas(){
+        int entradas = 0;
+        for (int i = 0; i < labirinto.length; i++){
+            for (int j = 0; j < labirinto.length; j++){
+                if (labirinto[i][j] == 'E'){
+                    entradas++;
+                }
+            }
+        }
+        if (entradas != 1){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean qtdSaidas() {
+        int saidas = 0;
+        for (int i = 0; i < labirinto.length; i++) {
+            for (int j = 0; j < labirinto.length; j++) {
+                if (labirinto[i][j] == 'S') {
+                    saidas++;
+                }
+            }
+        }
+        if (saidas != 1) {
+            return false;
+        }
+
+        return true;
+    }
 
 
+    public void testLab() throws Exception{
+        if(!temSaida()) {
+            throw new Exception("Labirinto não tem saida");
+        }
 
+        if(!temEntrada()) {
+            throw new Exception("Labirinto não tem entrada");
+        }
+
+        if(!qtdEntradas()) {
+            throw new Exception("Labirinto não tem uma unica entrada");
+        }
+
+        if(!qtdSaidas()) {
+            throw new Exception("Labirinto não tem uma unica saida");
+        }
     }
 }

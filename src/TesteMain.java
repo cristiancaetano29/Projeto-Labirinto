@@ -19,7 +19,7 @@ public class TesteMain {
         //Pegando o arquivo do usuario no seguinte formato: "nome do arquivo.extensao"
         String arquivo = Teclado.getUmString();
 
-        //Criando um objeto do tipo File
+        //Criando um objeto do tipo Files
         Arquivo arq = new Arquivo(arquivo);
 
 

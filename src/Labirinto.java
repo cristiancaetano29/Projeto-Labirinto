@@ -13,13 +13,13 @@ public class Labirinto {
         Arquivo arqLabirinto2 = new Arquivo(Arquivo);
         //Pega o indice da primeira linha do labirinto
         int qtdLinhas = arqLabirinto.getUmInt();
-        System.out.println("Linhas: " + qtdLinhas);
+        //System.out.println("Linhas: " + qtdLinhas);
         //Pega a segunda Linha do labirinto
         String str = arqLabirinto.getUmaString();
-        System.out.println("LinhaCompleta: " + str);
+        //System.out.println("LinhaCompleta: " + str);
         //retorna a quantidade de caracteres para realizar as verificações
         int qtdColunas = str.length();
-        System.out.println("Colunas: " + qtdColunas);
+        //System.out.println("Colunas: " + qtdColunas);
 
         this.qtdLinhas = qtdLinhas;
         this.qtdColunas = qtdColunas;
@@ -44,14 +44,14 @@ public class Labirinto {
             //System.out.println("Linhas: " + this.qtdLinhas + " Colunas: " + this.qtdColunas );
             //Percorro o labirinto pegando cada linha dele
             //System.out.println(this.labirinto.length);
-            System.out.println("Linhas: " + this.qtdLinhas + " Colunas: " + this.qtdColunas );
+            //System.out.println("Linhas: " + this.qtdLinhas + " Colunas: " + this.qtdColunas );
             for(int i = 0; i < this.qtdLinhas; i++){
                 srt = LabCop.getUmaString();
                 //System.out.println("Linha: "+ i + " " + srt);
                 //Percorro a linha pegando cada caracter
                 for (int j = 0; j < this.qtdColunas; j++){
                     this.labirinto[i][j] = srt.charAt(j);
-                    System.out.println("Linha: "+ i + " " + "Coluna: " + j + this.labirinto[i][j]);
+                    //System.out.println("Linha: "+ i + " " + "Coluna: " + j + this.labirinto[i][j]);
                 }
             }
 

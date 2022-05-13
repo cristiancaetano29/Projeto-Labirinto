@@ -52,6 +52,8 @@ public class Labirinto {
                 for (int j = 0; j < this.qtdColunas; j++){
                     this.labirinto[i][j] = srt.charAt(j);
                     //System.out.println("Linha: "+ i + " " + "Coluna: " + j + this.labirinto[i][j]);
+                    Cordenada cor = new Cordenada(i, j);
+                   System.out.println(cor + srt);
                 }
             }
 
@@ -135,7 +137,7 @@ public class Labirinto {
     public boolean temEntrada(){
         for (int i = 0; i < labirinto.length; i++){
             for (int j = 0; j < labirinto.length; j++){
-                if (labirinto[i][j] == 'E'){
+                if(labirinto[i][j] == 'E'){
                     return true;
                 }
             }
@@ -192,5 +194,21 @@ public class Labirinto {
         if(!qtdSaidas()) {
             throw new Exception("Labirinto não tem uma unica saida");
         }
+
+        Pilha<Cordenada> caminho = new Pilha<>(this.qtdLinhas * this.qtdColunas);
+        Pilha<Fila<Cordenada>> posibilidades = new Pilha<>(this.qtdLinhas * this.qtdColunas);
+        Cordenada atual = new Cordenada(0, 0);
+        Fila<Cordenada> filaDeAdjacencia = new Fila<>(3);
+
+        for (int i = 0; i < labirinto.length; i++) {
+            for (int j = 0; j < labirinto.length; j++) {
+                if (labirinto[i][j] != 'E' && labirinto[i][j] != 'S' && labirinto[i][j] != '#') {
+                    caminho.guardeUmItem(new Cordenada(i, j));
+                    System.out.println(caminho);
+                }
+            }
+        }
+
+
     }
 }

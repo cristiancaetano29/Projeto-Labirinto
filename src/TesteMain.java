@@ -8,6 +8,10 @@ public class TesteMain {
             String arquivo = Teclado.getUmString();
             Labirinto lab = new Labirinto(arquivo);
             lab.testLab();
+            //lab.andar(1,1);
+            //lab.andar(1,2);
+            //lab.andar(1,3);
+            //lab.passos();
             System.out.println("VerificandoLab: \n\n" + lab);
         }
         catch (Exception erro){

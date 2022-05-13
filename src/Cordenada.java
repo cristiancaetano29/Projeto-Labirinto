@@ -26,7 +26,7 @@ public class Cordenada {
                 '}';
     }
 
-    /*
+
     public boolean equals (Object obj)
     {
         if(this==obj)
@@ -46,10 +46,11 @@ public class Cordenada {
         return this.y == cord.y;
 
     }
-    */
-    /*
+
+
     public int hashCode ()
     {
+        int ret = 0;
         ret = ret*7 + Integer.valueOf(this.x).hashCode();
         ret = ret*7 + Integer.valueOf(this.y).hashCode();
 
@@ -58,8 +59,7 @@ public class Cordenada {
 
         return ret;
     }
-    */
-    /*
+
     // construtor de copia
     public Cordenada (Cordenada modelo) throws Exception
     {
@@ -69,9 +69,7 @@ public class Cordenada {
         this.x = modelo.x;
         this.y = modelo.y;
     }
-    */
 
-    /*
     public Object clone ()
     {
         Cordenada ret=null;
@@ -85,6 +83,6 @@ public class Cordenada {
 
         return ret;
     }
-    */
+
 }
 

@@ -94,33 +94,34 @@ public class Labirinto {
         return qtdColunas;
     }
 
-    // Obtenho o inicio do labirinto percorrendo a matriz e encontrando o char E, por padrão sempre começa em 0-0 e no segundo array na primeira chamada([0])
-    public int[] inicioLabirinto(){
-        int[] volta = {0,0};
-        for (int i = 0; i < labirinto.length; i++){
-            for (int j = 0; j < labirinto[0].length; j++){
-                if (labirinto[i][j] == 'E'){
-                    volta[0] = i;
-                    volta[1] = j;
-                }
-            }
-        }
-        return  volta;
-    }
+    /* Obtenho o inicio do labirinto percorrendo a matriz e encontrando o char E, por padrão sempre começa em 0-0 e no segundo array na primeira chamada([0])
+//    public int[] inicioLabirinto(){
+//        int[] volta = {0,0};
+//        for (int i = 0; i < labirinto.length; i++){
+//            for (int j = 0; j < labirinto[0].length; j++){
+//                if (labirinto[i][j] == 'E'){
+//                    volta[0] = i;
+//                    volta[1] = j;
+//                }
+//            }
+//        }
+//        return  volta;
+//    }
 
-    // Novamente obtenho o fim do labirinto percorrendo a matriz e encontrando o char S, por padrão sempre começa em 0-0 e no segundo array na primeira chamada([0])
+    //Novamente obtenho o fim do labirinto percorrendo a matriz e encontrando o char S, por padrão sempre começa em 0-0 e no segundo array na primeira chamada([0])
     public int[] fimLabirinto(){
-        int[] volta = {0,0};
-        for (int i = 0; i < labirinto.length; i++){
-            for (int j = 0; j < labirinto[0].length; j++){
-                if (labirinto[i][j] == 'S'){
-                    volta[0] = i;
-                    volta[1] = j;
-                }
-            }
-        }
-        return volta ;
-    }
+      int[] volta = {0,0};
+//        for (int i = 0; i < labirinto.length; i++){
+//            for (int j = 0; j < labirinto[0].length; j++){
+//                if (labirinto[i][j] == 'S'){
+//                    volta[0] = i;
+//                    volta[1] = j;
+//                }
+//            }
+//        }
+//        return volta ;
+}
+*/
 
     //Arrumando os Métodos acima
     public boolean temSaida(){
@@ -176,6 +177,44 @@ public class Labirinto {
 
         return true;
     }
+
+        // Marcar Histórico de passos
+        public void passos() {
+
+
+            // PROVAVEL VERIFICAÇÃO PARA ESPAÇOS EM BRANCO, POSSÍVEL QUE O MÉTODO DEVE CONTER PARAMETRO
+            for (int i = 0; i < labirinto.length; i++) {
+                for (int j = 0; j < labirinto.length; j++) {
+                    if (labirinto[i][j] != 'E' && labirinto[i][j] != 'S' && labirinto[i][j] != '#') {
+                        labirinto[i][j] = '*';
+                    }
+                }
+            }
+
+            for (int i = 0; i < labirinto.length-1; i++) {
+                for (int j = 0; j < labirinto.length-1; j++) {
+                    if (labirinto[i][j] != 'E' && labirinto[i][j] != 'S' && labirinto[i][j] != '#') {
+                        labirinto[i][j] = '*';
+                    }
+                }
+            }
+
+        }
+
+    //Making a method for walking the labyrinth
+    /*public boolean andar(int linha, int coluna){
+        if (labirinto[linha][coluna] == ' ') {
+            labirinto[linha][coluna] = 'X';
+            return true;
+        }
+        return false;
+    }*/
+
+    //making a method to return " "
+    //faça um metodo que ache todos os espaços em branco e marque com *
+
+
+
 
 
     public void testLab() throws Exception{

@@ -37,7 +37,7 @@ public class Labirinto {
         try{
             //System.out.println("CopiaIndice: " + LabCop.getUmInt() + "\n" + "Segunda Linha: " + LabCop.getUmaString());
             String srt = null;
-            //Pego o indece da primeira linha do labirinto
+            //Pego o indice da primeira linha do labirinto
             LabCop.getUmInt();
             //Crio uma matriz para armazenar o labirinto com os dados
             this.labirinto = new char[this.qtdLinhas][this.qtdColunas];

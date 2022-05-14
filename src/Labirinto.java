@@ -33,14 +33,14 @@ public class Labirinto implements Cloneable {
         this.qtdLinhas = qtdLinhas;
         this.qtdColunas = qtdColunas;
 
-        /*if((qtdLinhas != qtdColunas) || (qtdLinhas != qtdColunas)){
+        if(qtdLinhas != qtdColunas){
             System.out.println("O labirinto não é valido");
-            return;
-        }*/
+        }
 
         GerarMatrizDoLabirinto(arqLabirinto2);
     }
-
+//Teste1.txt
+    //C:\Users\Cristian\Desktop\C0tuca\Terceiro Semestre\TCC\Labirintos corretos para teste\
 
     public void GerarMatrizDoLabirinto(Arquivo LabCop) {
         try{
@@ -62,7 +62,7 @@ public class Labirinto implements Cloneable {
                     this.labirinto[i][j] = srt.charAt(j);
                     //System.out.println("Linha: "+ i + " " + "Coluna: " + j + this.labirinto[i][j]);
                     Cordenada cor = new Cordenada(i, j);
-                   System.out.println(cor + srt);
+                   //System.out.println(cor + srt);
                 }
             }
 
@@ -244,6 +244,9 @@ public class Labirinto implements Cloneable {
                         //this.qtdLinhas = todas as linhas = linha de baixo
                         //this.qtdColunas = todas as colunas = coluna da direita
                     }
+                    if(this.labirinto[i][j] == ' '){
+                        throw new Exception("Não existe Paredes nas bordas");
+                    }
                 }
                 //Parede da esquerda e da direita
                 if(j == 0 || j == this.qtdColunas -1){
@@ -252,7 +255,7 @@ public class Labirinto implements Cloneable {
                     }
 
                     if(this.labirinto[i][j] == ' '){
-                        throw new Exception("Não existe Paredes");
+                        throw new Exception("Não existe Paredes nas bordas");
                     }
                 }
             }
@@ -277,6 +280,9 @@ public class Labirinto implements Cloneable {
                         //this.qtdLinhas = todas as linhas = linha de baixo
                         //this.qtdColunas = todas as colunas = coluna da direita
                     }
+                    if(this.labirinto[i][j] == ' '){
+                        throw new Exception("Não existe Paredes nas bordas");
+                    }
                 }
                 //Parede da esquerda e da direita
                 if(j == 0 || j == this.qtdColunas -1){
@@ -285,7 +291,7 @@ public class Labirinto implements Cloneable {
                     }
 
                     if(this.labirinto[i][j] == ' '){
-                        throw new Exception("Não existe Paredes");
+                        throw new Exception("Não existe Paredes nas bordas");
                     }
                 }
             }
@@ -322,6 +328,7 @@ public class Labirinto implements Cloneable {
         if(!carterDiferente()){
             throw new Exception("Labirinto tem carter diferente de: 'E' -- 'S' -- ' ' ");
         }
+        //cordE();
 
         this.caminho = new Pilha<Cordenada>(getQtdLinhas() * getQtdColunas());
         this.posibilidades = new Pilha<Fila<Cordenada>>(getQtdLinhas() * getQtdColunas());

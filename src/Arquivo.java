@@ -4,12 +4,12 @@ public class Arquivo {
 
     private BufferedReader reader;
 
-    public Arquivo(String nomeDoArquivo){
+    public Arquivo(String nomeDoArquivo) throws Exception{
         try{
             reader = new BufferedReader(new FileReader(nomeDoArquivo));
         }
         catch (IOException erro){
-            System.err.println("Arquivo não encontrado");
+            throw new Exception("Diretório do arquivo não encontrado!!! \n Tente novamente");
         }
     }
 
@@ -22,6 +22,7 @@ public class Arquivo {
         {  }
 
         return ret;
+
     }
 
     public int getUmInt() throws Exception

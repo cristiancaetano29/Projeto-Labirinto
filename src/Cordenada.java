@@ -50,7 +50,7 @@ public class Cordenada {
 
     public int hashCode ()
     {
-        int ret = 0;
+        int ret = 9;
         ret = ret*7 + Integer.valueOf(this.x).hashCode();
         ret = ret*7 + Integer.valueOf(this.y).hashCode();
 

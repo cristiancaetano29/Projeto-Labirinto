@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -14,8 +15,8 @@ public class TesteMain {
             //lab.passos();
             System.out.println("VerificandoLab: \n\n" + lab);
         }
-        catch (Exception erro){
-            System.err.println(erro);
+        catch (Exception e){
+            System.err.println("Erro: " + e.getMessage());
         }
         /*
         System.out.println("Qual o nome do Arquivo?");

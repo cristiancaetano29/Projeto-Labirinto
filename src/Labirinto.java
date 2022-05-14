@@ -6,9 +6,18 @@ public class Labirinto {
     private String Arquivo;
     private char[][] labirinto;
 
+    private Pilha<Cordenada> caminho;
+    private Pilha<Fila<Cordenada>> posibilidades;
+    private Fila<Cordenada> filaDeAdjacencia;
+    private Cordenada CORD2 = null;
+    private Cordenada atual = null;
+    //private Fila<Cordenada> posAdj;
+
+
     public Labirinto(String Arquivo) throws Exception {
         //Pega o arquivo do labirinto
         Arquivo arqLabirinto = new Arquivo(Arquivo);
+        //Pega a quantidade de linhas e colunas do labirinto
         //tenho que ter uma copia do labirinto para não perder o labirinto original
         Arquivo arqLabirinto2 = new Arquivo(Arquivo);
         //Pega o indice da primeira linha do labirinto
@@ -62,7 +71,7 @@ public class Labirinto {
         { }//Não vai dar erro pois o arquivo é valido
     }
 
-    //making a toSring for return all elements of the labyrinth
+
 
 
 
@@ -201,18 +210,84 @@ public class Labirinto {
 
         }
 
-    //Making a method for walking the labyrinth
-    /*public boolean andar(int linha, int coluna){
-        if (labirinto[linha][coluna] == ' ') {
-            labirinto[linha][coluna] = 'X';
-            return true;
+
+
+    //Traz a loc atual que se encontra no momento
+    private char MinhaLocAtual(){
+        return labirinto[this.atual.getLinha()][this.atual.getColuna()];
+    }
+
+    //Acha a Loc E
+    private Cordenada cordE() throws Exception{
+        Cordenada cord = null;
+        for(int i = 0; i < this.qtdLinhas; i++){
+            for(int j = 0; j < this.qtdColunas; j++){
+                if(i == 0 || i == this.qtdLinhas-1){
+                    //Parede de cima e de baixo
+                    if(this.labirinto[i][j] == 'E'){
+                        cord = new Cordenada(i,j);
+
+                        // i = Linha = 0 = Linha de cima
+                        // j = Coluna = 0 = Coluna da esquerda
+
+                        //this.qtdLinhas = todas as linhas = linha de baixo
+                        //this.qtdColunas = todas as colunas = coluna da direita
+                    }
+                }
+                //Parede da esquerda e da direita
+                if(j == 0 || j == this.qtdColunas -1){
+                    if(this.labirinto[i][j] == 'E'){
+                        cord = new Cordenada(i,j);
+                    }
+
+                    if(this.labirinto[i][j] == ' '){
+                        throw new Exception("Não existe Paredes");
+                    }
+                }
+            }
         }
-        return false;
-    }*/
+         return cord;
+    }
 
-    //making a method to return " "
-    //faça um metodo que ache todos os espaços em branco e marque com *
 
+    //Acha a Loc S
+    private Cordenada cordS() throws Exception{
+        Cordenada cord2 = null;
+        for(int i = 0; i < this.qtdLinhas; i++){
+            for(int j = 0; j < this.qtdColunas; j++){
+                if(i == 0 || i == this.qtdLinhas -1){
+                    //Parede de cima e de baixo
+                    if(this.labirinto[i][j] == 'S'){
+                        cord2 = new Cordenada(i,j);
+
+                        // i = Linha = 0 = Linha de cima
+                        // j = Coluna = 0 = Coluna da esquerda
+
+                        //this.qtdLinhas = todas as linhas = linha de baixo
+                        //this.qtdColunas = todas as colunas = coluna da direita
+                    }
+                }
+                //Parede da esquerda e da direita
+                if(j == 0 || j == this.qtdColunas -1){
+                    if(this.labirinto[i][j] == 'S'){
+                        cord2 = new Cordenada(i,j);
+                    }
+
+                    if(this.labirinto[i][j] == ' '){
+                        throw new Exception("Não existe Paredes");
+                    }
+                }
+            }
+        }
+        return cord2;
+    }
+
+    public boolean validarLocalizacao(int colum, int linha) {
+        if (colum < 0 || colum >= getQtdColunas() || linha < 0 || linha >= getQtdLinhas()) {
+            return false;
+        }
+        return true;
+    }
 
 
 
@@ -233,8 +308,19 @@ public class Labirinto {
         if(!qtdSaidas()) {
             throw new Exception("Labirinto não tem uma unica saida");
         }
+        //validarLocalizacao(this.qtdColunas, this.qtdLinhas);
 
-        Pilha<Cordenada> caminho = new Pilha<>(this.qtdLinhas * this.qtdColunas);
+        this.caminho = new Pilha<Cordenada>(getQtdLinhas() * getQtdColunas());
+        this.posibilidades = new Pilha<Fila<Cordenada>>(getQtdLinhas() * getQtdColunas());
+
+        this.atual = new Cordenada(cordE());
+        //this.CORD2 = new Cordenada(cordS());
+        System.out.println("Entrada: " + this.atual);
+        System.out.println("Saida: " + cordS());
+
+    }
+
+        /*Pilha<Cordenada> caminho = new Pilha<>(this.qtdLinhas * this.qtdColunas);
         Pilha<Fila<Cordenada>> posibilidades = new Pilha<>(this.qtdLinhas * this.qtdColunas);
         Cordenada atual = new Cordenada(0, 0);
         Fila<Cordenada> filaDeAdjacencia = new Fila<>(3);
@@ -246,8 +332,67 @@ public class Labirinto {
                     System.out.println(caminho);
                 }
             }
-        }
+        }*/
 
+
+    /*
+        public boolean passarBranco() throws Exception {
+        //atual.getLinha();
+        //atual.getColuna();
+        //int atual1 = 0;
+        for (int i = 0; i < labirinto.length-1; i++) {
+            for (int j = 0; j < labirinto.length-1; j++) {
+                if (labirinto[i][j] == 'E'){
+                    Cordenada atual = new Cordenada(i, j);
+                    Fila<Cordenada> filaDeAdjacencia = new Fila<>(3);
+
+                    labirinto[i][j+1] = '*';
+                    labirinto[i+1][j+1] = '*';
+                    //labirinto[j+1][i+1] = '*';
+                    //atual1 = labirinto[i][j];
+                    //atual1++;
+                    //System.out.println(atual1);
+                    System.out.println("pos: " + atual);
+                }
+            }
+        }
+        return false;
+    }
+     */
+
+
+    @Override
+    public int hashCode(){
+        int ret = 9;
+        ret = ret*7 + Integer.valueOf(this.qtdColunas).hashCode();
+        ret = ret*7 + Integer.valueOf(this.qtdLinhas).hashCode();
+        // ret = ret*7 + Character.valueOf((char) this.labirinto.length).hashCode();
+
+        for(int i = 0; i < this.qtdLinhas; i++){
+            for(int j = 0; j < this.qtdColunas; j++){
+                ret = ret * 7 + new Character(this.labirinto[i][j]).hashCode();
+            }
+        }
+        if (ret<0)
+            ret=-ret;
+
+        return ret;
+    }
+
+
+    // CONSTRUTOR DE CÓPIA
+        public Labirinto (Labirinto lab) throws Exception{
+            if (lab == null){
+                throw new Exception("Arquivo nulo");
+            }
+            this.qtdLinhas = lab.qtdLinhas;
+            this.qtdColunas = lab.qtdColunas;
+
+
+            // VERIFICAR
+            // this.labirinto = new char[lab.labirinto.length][];
+            this.labirinto = lab.labirinto;
 
     }
 }
+

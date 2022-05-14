@@ -33,9 +33,10 @@ public class Labirinto implements Cloneable {
         this.qtdLinhas = qtdLinhas;
         this.qtdColunas = qtdColunas;
 
-        if(qtdLinhas != qtdColunas){
-            System.out.println("O labirinto não é valido");
-        }
+        /*if(qtdLinhas != qtdColunas){;
+            //System.out.println("O labirinto não é valido");
+            throw new Exception("O labirinto não é valido");
+        }*/
 
         GerarMatrizDoLabirinto(arqLabirinto2);
     }

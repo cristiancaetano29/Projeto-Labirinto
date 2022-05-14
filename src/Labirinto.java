@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class Labirinto {
+public class Labirinto implements Cloneable {
     private int qtdLinhas;
     private int qtdColunas;
     private String Arquivo;
@@ -290,8 +290,6 @@ public class Labirinto {
     }
 
 
-
-
     public void testLab() throws Exception{
         if(!temSaida()) {
             throw new Exception("Labirinto não tem saida");
@@ -394,5 +392,30 @@ public class Labirinto {
             this.labirinto = lab.labirinto;
 
     }
+
+    @Override
+    public Object clone(){
+
+        Labirinto lab = null;
+        try {
+            lab = new Labirinto(this);
+
+        } catch (Exception erro){}
+
+        return lab;
+    }
+
+/*    @Override
+        public  boolean equals(Object obj){
+            if (this == obj) return true;
+            if (obj == null) return false;
+
+            if (obj.getClass() != Labirinto.class) return false;
+            Labirinto lab = (Labirinto) obj;
+           return   ;
+
+}
+*/
+
 }
 

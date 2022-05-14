@@ -70,6 +70,7 @@ public class Cordenada {
         this.y = modelo.y;
     }
 
+    @Override
     public Object clone ()
     {
         Cordenada ret=null;

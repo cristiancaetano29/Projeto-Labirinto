@@ -134,8 +134,8 @@ public class Labirinto implements Cloneable {
 
     //Arrumando os Métodos acima
     public boolean temSaida(){
-        for (int i = 0; i < labirinto.length; i++){
-            for (int j = 0; j < labirinto.length; j++){
+        for (int i = 0; i < this.qtdLinhas; i++) {
+            for (int j = 0; j < this.qtdColunas; j++) {
                 if (labirinto[i][j] == 'S'){
                     return true;
                 }
@@ -145,8 +145,8 @@ public class Labirinto implements Cloneable {
     }
 
     public boolean temEntrada(){
-        for (int i = 0; i < labirinto.length; i++){
-            for (int j = 0; j < labirinto.length; j++){
+        for (int i = 0; i < this.qtdLinhas; i++) {
+            for (int j = 0; j < this.qtdColunas; j++) {
                 if(labirinto[i][j] == 'E'){
                     return true;
                 }
@@ -158,8 +158,8 @@ public class Labirinto implements Cloneable {
     //Verificar a quantidade de entradas e saidas
     public boolean qtdEntradas(){
         int entradas = 0;
-        for (int i = 0; i < labirinto.length; i++){
-            for (int j = 0; j < labirinto.length; j++){
+        for (int i = 0; i < this.qtdLinhas; i++) {
+            for (int j = 0; j < this.qtdColunas; j++) {
                 if (labirinto[i][j] == 'E'){
                     entradas++;
                 }
@@ -173,8 +173,8 @@ public class Labirinto implements Cloneable {
 
     public boolean qtdSaidas() {
         int saidas = 0;
-        for (int i = 0; i < labirinto.length; i++) {
-            for (int j = 0; j < labirinto.length; j++) {
+        for (int i = 0; i < this.qtdLinhas; i++) {
+            for (int j = 0; j < this.qtdColunas; j++) {
                 if (labirinto[i][j] == 'S') {
                     saidas++;
                 }
@@ -187,21 +187,32 @@ public class Labirinto implements Cloneable {
         return true;
     }
 
+    public boolean carterDiferente(){
+        for (int i = 0; i < this.qtdLinhas; i++) {
+            for (int j = 0; j < this.qtdColunas; j++) {
+                if (labirinto[i][j] != 'E' && labirinto[i][j] != 'S' && labirinto[i][j] != '#' && labirinto[i][j] != ' '){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
         // Marcar Histórico de passos
         public void passos() {
 
 
             // PROVAVEL VERIFICAÇÃO PARA ESPAÇOS EM BRANCO, POSSÍVEL QUE O MÉTODO DEVE CONTER PARAMETRO
-            for (int i = 0; i < labirinto.length; i++) {
-                for (int j = 0; j < labirinto.length; j++) {
+            for (int i = 0; i < this.qtdLinhas; i++) {
+                for (int j = 0; j < this.qtdColunas; j++) {
                     if (labirinto[i][j] != 'E' && labirinto[i][j] != 'S' && labirinto[i][j] != '#') {
                         labirinto[i][j] = '*';
                     }
                 }
             }
 
-            for (int i = 0; i < labirinto.length-1; i++) {
-                for (int j = 0; j < labirinto.length-1; j++) {
+            for (int i = 0; i < this.qtdLinhas -1; i++) {
+                for (int j = 0; j < this.qtdColunas -1; j++) {
                     if (labirinto[i][j] != 'E' && labirinto[i][j] != 'S' && labirinto[i][j] != '#') {
                         labirinto[i][j] = '*';
                     }
@@ -307,6 +318,10 @@ public class Labirinto implements Cloneable {
             throw new Exception("Labirinto não tem uma unica saida");
         }
         //validarLocalizacao(this.qtdColunas, this.qtdLinhas);
+
+        if(!carterDiferente()){
+            throw new Exception("Labirinto tem carter diferente de: 'E' -- 'S' -- ' ' ");
+        }
 
         this.caminho = new Pilha<Cordenada>(getQtdLinhas() * getQtdColunas());
         this.posibilidades = new Pilha<Fila<Cordenada>>(getQtdLinhas() * getQtdColunas());

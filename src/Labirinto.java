@@ -487,7 +487,9 @@ public class Labirinto implements Cloneable {
                     System.out.println(caminho);
                 }
             }
-        }*/
+        }
+       */
+
 
 
     /*

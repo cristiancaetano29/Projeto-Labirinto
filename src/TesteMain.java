@@ -29,7 +29,10 @@ public class TesteMain {
 
 
         String MeuArquivoModelo = "C:\\Users\\Cristian\\Desktop\\C0tuca\\Terceiro Semestre\\TCC\\LabTest.txt"; //só um Modelo
+         C:\Users\diogo\OneDrive\Área de Trabalho\labs\LabTest.txt
 
+
+         */
         /*
         //Teste para ver se o arquivo existe e se é possível ler
         System.out.println(new String(Files.readAllBytes(Paths.get(arquivo))));

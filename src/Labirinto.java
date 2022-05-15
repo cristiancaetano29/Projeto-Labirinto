@@ -33,10 +33,14 @@ public class Labirinto implements Cloneable {
         this.qtdLinhas = qtdLinhas;
         this.qtdColunas = qtdColunas;
 
-        /*if(qtdLinhas != qtdColunas){;
-            //System.out.println("O labirinto não é valido");
-            throw new Exception("O labirinto não é valido");
-        }*/
+        for(int i = 0; i < this.qtdLinhas; i++) {
+            for (int j = 0; j < this.qtdColunas; j++) {
+                if(this.qtdLinhas != this.qtdColunas){;
+                    //System.out.println("O labirinto não é valido");
+                    throw new Exception("O labirinto não é valido");
+                }
+            }
+        }
 
         GerarMatrizDoLabirinto(arqLabirinto2);
     }
@@ -96,13 +100,6 @@ public class Labirinto implements Cloneable {
     }
 
     //Vendo o que esta sendo retornado nas linhas e colunas
-    public int getQtdLinhas() {
-        return qtdLinhas;
-    }
-
-    public int getQtdColunas() {
-        return qtdColunas;
-    }
 
     /* Obtenho o inicio do labirinto percorrendo a matriz e encontrando o char E, por padrão sempre começa em 0-0 e no segundo array na primeira chamada([0])
 //    public int[] inicioLabirinto(){
@@ -307,7 +304,6 @@ public class Labirinto implements Cloneable {
         return true;
     }
 
-
     public void testLab() throws Exception{
         if(!temSaida()) {
             throw new Exception("Labirinto não tem saida");
@@ -335,13 +331,151 @@ public class Labirinto implements Cloneable {
         this.posibilidades = new Pilha<Fila<Cordenada>>(getQtdLinhas() * getQtdColunas());
 
         this.atual = new Cordenada(cordE());
-        //this.CORD2 = new Cordenada(cordS());
+
         System.out.println("Entrada: " + this.atual);
         System.out.println("Saida: " + cordS());
+        System.out.println("Loc: " + MinhaLocAtual());
+
+        //System.out.println("Cima: " + getParedeCima());
+        CordLabADJ();
+        while(MinhaLocAtual() != 'S'){
+            this.atual = this.filaDeAdjacencia.recupereUmItem();
+            if(MinhaLocAtual() != 'S'){
+                this.filaDeAdjacencia.removaUmItem();
+                this.labirinto[this.atual.getLinha()][this.atual.getColuna()] = '*';
+
+                this.posibilidades.guardeUmItem(this.filaDeAdjacencia);
+            }
+            //CordLabADJ()
+        }
 
     }
 
-        /*Pilha<Cordenada> caminho = new Pilha<>(this.qtdLinhas * this.qtdColunas);
+    public void CordLabADJ() throws Exception{
+        //Faço uma Fila de Cordenadas cabendo 3
+        this.filaDeAdjacencia = new Fila<Cordenada>(3);
+        //Declara uma Cordenada e usa o Método cordCima() para retornar a cordenada de cima salvando ela na variavel
+        Cordenada cord;
+        cord = cordCima();
+        // VERIFICA CHAR NA POSIÇÃO ACIMA
+//        if(getPosCima() == 'S' || getPosCima() == ' '){
+//            this.filaDeAdjacencia.guardeUmItem(cord);
+//        }
+
+        cord = cordDireita();
+        if(getPosDireita() == 'S' || getPosDireita() == ' '){
+            this.filaDeAdjacencia.guardeUmItem(cord);
+//            System.out.println(cord);
+//            System.out.println(this.filaDeAdjacencia);
+        }
+    }
+
+    private Cordenada cordCima() throws Exception{
+        Cordenada cord = null;
+        try{
+            cord = new Cordenada(this.atual.getLinha() - 1, this.atual.getColuna());
+        }
+        catch (Exception e){
+            throw new Exception("Cordenada Invalida");
+        }
+        return cord;
+    }
+
+    private Cordenada cordBaixo() throws Exception{
+        Cordenada cord = null;
+        try{
+            cord = new Cordenada(this.atual.getLinha() + 1, this.atual.getColuna());
+        }
+        catch (Exception e){
+            throw new Exception("Cordenada Invalida");
+        }
+        return cord;
+    }
+
+    private Cordenada cordEsquerda() throws Exception{
+        Cordenada cord = null;
+        try{
+            cord = new Cordenada(this.atual.getLinha(), this.atual.getColuna() - 1);
+        }
+        catch (Exception e){
+            throw new Exception("Cordenada Invalida");
+        }
+        return cord;
+    }
+
+    private Cordenada cordDireita() throws Exception{
+        Cordenada cord = null;
+        try{
+            cord = new Cordenada(this.atual.getLinha(), this.atual.getColuna() + 1);
+        }
+        catch (Exception e){
+            throw new Exception("Cordenada Invalida");
+        }
+        return cord;
+    }
+
+    // VERIFICA LINHA ACIMAaa
+
+     /*       if()
+     Cordenada cord;
+     cord = cordCima();
+     if(getPosCima() == 'S' || getPosCima() == ' '){
+
+        this.filaDeAdjacencia.guardeUmItem(cord;
+
+      */
+
+    /*
+    for(int i = 0; i < this.qtdLinhas; i++){
+            for(int j = 0; j < this.qtdColunas; j++){
+                if(i == 0 || i == this.qtdLinhas -1){
+                    //Parede de cima e de baixo
+                    if(this.labirinto[i][j] == 'S'){
+                        cord2 = new Cordenada(i,j);
+
+                        // i = Linha = 0 = Linha de cima
+                        // j = Coluna = 0 = Coluna da esquerda
+
+                        //this.qtdLinhas = todas as linhas = linha de baixo
+                        //this.qtdColunas = todas as colunas = coluna da direita
+                    }
+                    if(this.labirinto[i][j] == ' '){
+                        throw new Exception("Não existe Paredes nas bordas");
+                    }
+                }
+         */
+
+        /*
+              if (linhaAtual - 1 >= 0) // verifica se não estoura o array na parte de cima
+            {
+                if (labirinto[linhaAtual - 1][colunaAtual] == '.') // verifica se o passo de cima é '.'
+                {
+                    completaLab(linhaAtual - 1, colunaAtual);
+                }
+            }
+
+
+
+
+
+
+
+         */
+
+
+
+        /*
+              for (int i = 0; i < this.qtdLinhas -1; i++) {
+                for (int j = 0; j < this.qtdColunas -1; j++) {
+                    if (labirinto[i][j] != 'E' && labirinto[i][j] != 'S' && labirinto[i][j] != '#') {
+                        labirinto[i][j] = '*';
+                    }
+                }
+            }
+         */
+
+        /*
+        Pilha<Cordenada> caminho = new Pilha<>(this.qtdLinhas * this.qtdColunas);
         Pilha<Fila<Cordenada>> posibilidades = new Pilha<>(this.qtdLinhas * this.qtdColunas);
         Cordenada atual = new Cordenada(0, 0);
         Fila<Cordenada> filaDeAdjacencia = new Fila<>(3);
@@ -439,6 +573,30 @@ public class Labirinto implements Cloneable {
 
 }
 */
+    public int getQtdLinhas() {
+        return this.qtdLinhas;
+    }
+
+    public int getQtdColunas() {
+        return this.qtdColunas;
+    }
+
+    //Métodos para pegar o que tem em cada posição
+    private char getPosCima(){
+        return this.labirinto[this.atual.getLinha()-1][this.atual.getColuna()];
+}
+
+    private char getPosBaixo(){
+        return this.labirinto[this.atual.getLinha()+1][this.atual.getColuna()];
+    }
+
+    private char getPosEsquerda(){
+        return this.labirinto[this.atual.getLinha()][this.atual.getColuna()-1];
+    }
+
+    private char getPosDireita(){
+        return this.labirinto[this.atual.getLinha()][this.atual.getColuna()+1];
+    }
 
 }
 

@@ -1,178 +1,168 @@
 import java.lang.reflect.*;
 
-public class Pilha <X> implements Cloneable
-{
+public class Pilha<X> implements Cloneable {
     private Object[] elemento; //private X[] elemento;
-    private int      tamanhoInicial;
-    private int      ultimo=-1; //vazio
+    private int tamanhoInicial;
+    private int ultimo = -1; //vazio
 
-    public Pilha (int tamanho) throws Exception
-    {
-        if (tamanho<=0)
-            throw new Exception ("Tamanho invalido");
+    public Pilha(int tamanho) throws Exception {
+        if (tamanho <= 0)
+            throw new Exception("Tamanho invalido");
 
-        this.elemento       = new Object [tamanho]; //this.elemento=new X [tamanho];
+        this.elemento = new Object[tamanho]; //this.elemento=new X [tamanho];
         this.tamanhoInicial = tamanho;
     }
 
-    public Pilha ()
-    {
-        this.elemento       = new Object [10]; //this.elemento=new X [10];
+    public Pilha() {
+        this.elemento = new Object[10]; //this.elemento=new X [10];
         this.tamanhoInicial = 10;
     }
 
-    private void redimensioneSe (float fator)
-    {
+    private void redimensioneSe(float fator) {
         // X[] novo = new X [Math.round(this.elemento.length*fator)];
-        Object[] novo = new Object [Math.round(this.elemento.length*fator)];
+        Object[] novo = new Object[Math.round(this.elemento.length * fator)];
 
-        for(int i=0; i<=this.ultimo; i++)
+        for (int i = 0; i <= this.ultimo; i++)
             novo[i] = this.elemento[i];
 
         this.elemento = novo;
     }
 
-    private X meuCloneDeX (X x)
-    {
-        X ret=null;
+    private X meuCloneDeX(X x) {
+        X ret = null;
 
-        try
-        {
-            Class<?> classe         = x.getClass();
+        try {
+            Class<?> classe = x.getClass();
             Class<?>[] tipoDosParms = null;
-            Method metodo           = classe.getMethod("clone",tipoDosParms);
-            Object[] parms          = null;
-            ret                     = (X)metodo.invoke(x,parms);
+            Method metodo = classe.getMethod("clone", tipoDosParms);
+            Object[] parms = null;
+            ret = (X) metodo.invoke(x, parms);
+        } catch (NoSuchMethodException erro) {
+        } catch (IllegalAccessException erro) {
+        } catch (InvocationTargetException erro) {
         }
-        catch(NoSuchMethodException erro)
-        {}
-        catch(IllegalAccessException erro)
-        {}
-        catch(InvocationTargetException erro)
-        {}
 
         return ret;
     }
 
-    public void guardeUmItem (X x) throws Exception // LIFO
+    public void guardeUmItem(X x) throws Exception // LIFO
     {
-        if (x==null)
-            throw new Exception ("Falta o que guardar");
+        if (x == null)
+            throw new Exception("Falta o que guardar");
 
-        if (this.ultimo+1==this.elemento.length) // cheia
-            this.redimensioneSe (2.0F);
+        if (this.ultimo + 1 == this.elemento.length) // cheia
+            this.redimensioneSe(2.0F);
 
         this.ultimo++;
 
         if (x instanceof Cloneable)
-            this.elemento[this.ultimo]=meuCloneDeX(x);
+            this.elemento[this.ultimo] = meuCloneDeX(x);
         else
-            this.elemento[this.ultimo]=x;
+            this.elemento[this.ultimo] = x;
     }
 
-    public X recupereUmItem () throws Exception // LIFO
+    public X recupereUmItem() throws Exception // LIFO
     {
-        if (this.ultimo==-1) // vazia
-            throw new Exception ("Nada a recuperar");
+        if (this.ultimo == -1) // vazia
+            throw new Exception("Nada a recuperar");
 
-        X ret=null;
+        X ret = null;
         if (this.elemento[this.ultimo] instanceof Cloneable)
-            ret = meuCloneDeX((X)this.elemento[this.ultimo]);
+            ret = meuCloneDeX((X) this.elemento[this.ultimo]);
         else
-            ret = (X)this.elemento[this.ultimo];
+            ret = (X) this.elemento[this.ultimo];
 
         return ret;
     }
 
-    public void removaUmItem () throws Exception // LIFO
+    public void removaUmItem() throws Exception // LIFO
     {
-        if (this.ultimo==-1) // vazia
-            throw new Exception ("Nada a remover");
+        if (this.ultimo == -1) // vazia
+            throw new Exception("Nada a remover");
 
         this.elemento[this.ultimo] = null;
         this.ultimo--;
 
-        if (this.elemento.length>this.tamanhoInicial &&
-                this.ultimo+1<=Math.round(this.elemento.length*0.25F))
-            this.redimensioneSe (0.5F);
+        if (this.elemento.length > this.tamanhoInicial &&
+                this.ultimo + 1 <= Math.round(this.elemento.length * 0.25F))
+            this.redimensioneSe(0.5F);
     }
 
-    public boolean isCheia ()
-    {
-        if(this.ultimo+1==this.elemento.length)
+    public boolean isCheia() {
+        if (this.ultimo + 1 == this.elemento.length)
             return true;
 
         return false;
     }
 
-    public boolean isVazia ()
-    {
-        if(this.ultimo==-1)
+    public boolean isVazia() {
+        if (this.ultimo == -1)
             return true;
 
         return false;
     }
 
-    public String toString ()
-    {
-        String ret = (this.ultimo+1) + " elemento(s)";
+    public int getUltimo() {
+        return this.ultimo;
+    }
 
-        if (this.ultimo!=-1)
-            ret += ", sendo o ultimo "+this.elemento[this.ultimo];
+
+    public String toString() {
+        String ret = (this.ultimo + 1) + " elemento(s)";
+
+        if (this.ultimo != -1)
+            ret += ", sendo o ultimo " + this.elemento[this.ultimo];
 
         return ret;
     }
 
-    public boolean equals (Object obj)
-    {
-        if(this==obj)
+    public boolean equals(Object obj) {
+        if (this == obj)
             return true;
 
-        if(obj==null)
+        if (obj == null)
             return false;
 
-        if(this.getClass()!=obj.getClass())
+        if (this.getClass() != obj.getClass())
             return false;
 
         Pilha<X> pil = (Pilha<X>) obj;
 
-        if(this.ultimo!=pil.ultimo)
+        if (this.ultimo != pil.ultimo)
             return false;
 
-        if(this.tamanhoInicial!=pil.tamanhoInicial)
+        if (this.tamanhoInicial != pil.tamanhoInicial)
             return false;
 
-        for(int i=0 ; i<this.ultimo;i++)
-            if(!this.elemento[i].equals(pil.elemento[i]))
+        for (int i = 0; i < this.ultimo; i++)
+            if (!this.elemento[i].equals(pil.elemento[i]))
                 return false;
 
         return true;
     }
 
-    public int hashCode ()
-    {
-        int ret=666/*qualquer positivo*/;
+    public int hashCode() {
+        int ret = 666/*qualquer positivo*/;
 
-        ret = ret*7/*primo*/ + new Integer(this.ultimo        ).hashCode();
-        ret = ret*7/*primo*/ + new Integer(this.tamanhoInicial).hashCode();
+        ret = ret * 7/*primo*/ + new Integer(this.ultimo).hashCode();
+        ret = ret * 7/*primo*/ + new Integer(this.tamanhoInicial).hashCode();
 
-        for (int i=0; i<this.ultimo; i++)
-            ret = ret*7/*primo*/ + this.elemento[i].hashCode();
+        for (int i = 0; i < this.ultimo; i++)
+            ret = ret * 7/*primo*/ + this.elemento[i].hashCode();
 
-        if (ret<0)
-            ret=-ret;
+        if (ret < 0)
+            ret = -ret;
 
         return ret;
     }
 
     // construtor de copia
-    public Pilha (Pilha<X> modelo) throws Exception
-    {
-        if(modelo == null)
+    public Pilha(Pilha<X> modelo) throws Exception {
+        if (modelo == null)
             throw new Exception("Modelo ausente");
 
         this.tamanhoInicial = modelo.tamanhoInicial;
-        this.ultimo         = modelo.ultimo;
+        this.ultimo = modelo.ultimo;
 
         // para fazer a copia dum vetor
         // precisa criar um vetor novo, com new
@@ -182,20 +172,17 @@ public class Pilha <X> implements Cloneable
         // o mesmo vetor
         this.elemento = new Object[modelo.elemento.length]; // this.elemento = new X [modelo.elemento.length];
 
-        for(int i=0 ; i<modelo.elemento.length ; i++)
+        for (int i = 0; i < modelo.elemento.length; i++)
             this.elemento[i] = modelo.elemento[i];
     }
 
-    public Object clone ()
-    {
-        Pilha<X> ret=null;
+    public Object clone() {
+        Pilha<X> ret = null;
 
-        try
-        {
+        try {
             ret = new Pilha<X>(this);
+        } catch (Exception erro) {
         }
-        catch(Exception erro)
-        {}
 
         return ret;
     }

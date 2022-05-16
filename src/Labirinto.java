@@ -9,9 +9,8 @@ public class Labirinto implements Cloneable {
     private Pilha<Cordenada> caminho;
     private Pilha<Fila<Cordenada>> posibilidades;
     private Fila<Cordenada> filaDeAdjacencia;
-    //private Cordenada CORD2 = null;
     private Cordenada atual = null;
-    //private Fila<Cordenada> posAdj;
+    private Pilha<Cordenada> inverso;
 
 
     public Labirinto(String Arquivo) throws Exception {
@@ -76,61 +75,7 @@ public class Labirinto implements Cloneable {
         { }//Não vai dar erro pois o arquivo é valido
     }
 
-
-
-
-
-    @Override
-    public String toString() {
-        String str = "Labirinto: \n";
-
-        if(this.labirinto == null){
-            str = "Labirinto invalido";
-        }
-        else{
-            for(int i = 0; i < this.qtdLinhas; i++){
-                for(int j = 0; j < this.qtdColunas; j++){
-                    str += Character.toString(this.labirinto[i][j]);
-                }
-                //Quebra a linha para não ficar uma linha só
-                str += "\n";
-            }
-        }
-        return str;
-    }
-
-    //Vendo o que esta sendo retornado nas linhas e colunas
-
-    /* Obtenho o inicio do labirinto percorrendo a matriz e encontrando o char E, por padrão sempre começa em 0-0 e no segundo array na primeira chamada([0])
-//    public int[] inicioLabirinto(){
-//        int[] volta = {0,0};
-//        for (int i = 0; i < labirinto.length; i++){
-//            for (int j = 0; j < labirinto[0].length; j++){
-//                if (labirinto[i][j] == 'E'){
-//                    volta[0] = i;
-//                    volta[1] = j;
-//                }
-//            }
-//        }
-//        return  volta;
-//    }
-
-    //Novamente obtenho o fim do labirinto percorrendo a matriz e encontrando o char S, por padrão sempre começa em 0-0 e no segundo array na primeira chamada([0])
-    public int[] fimLabirinto(){
-      int[] volta = {0,0};
-//        for (int i = 0; i < labirinto.length; i++){
-//            for (int j = 0; j < labirinto[0].length; j++){
-//                if (labirinto[i][j] == 'S'){
-//                    volta[0] = i;
-//                    volta[1] = j;
-//                }
-//            }
-//        }
-//        return volta ;
-}
-*/
-
-    //Arrumando os Métodos acima
+    // VERIFCA SE EXISTE UMA SAIDA
     public boolean temSaida(){
         for (int i = 0; i < this.qtdLinhas; i++) {
             for (int j = 0; j < this.qtdColunas; j++) {
@@ -196,32 +141,7 @@ public class Labirinto implements Cloneable {
         return true;
     }
 
-        // Marcar Histórico de passos
-        public void passos() {
-
-
-            // PROVAVEL VERIFICAÇÃO PARA ESPAÇOS EM BRANCO, POSSÍVEL QUE O MÉTODO DEVE CONTER PARAMETRO
-            for (int i = 0; i < this.qtdLinhas; i++) {
-                for (int j = 0; j < this.qtdColunas; j++) {
-                    if (labirinto[i][j] != 'E' && labirinto[i][j] != 'S' && labirinto[i][j] != '#') {
-                        labirinto[i][j] = '*';
-                    }
-                }
-            }
-
-            for (int i = 0; i < this.qtdLinhas -1; i++) {
-                for (int j = 0; j < this.qtdColunas -1; j++) {
-                    if (labirinto[i][j] != 'E' && labirinto[i][j] != 'S' && labirinto[i][j] != '#') {
-                        labirinto[i][j] = '*';
-                    }
-                }
-            }
-
-        }
-
-
-
-    //Traz a loc atual que se encontra no momento
+    // TRAZ A POSIÇÃO ATUAL QUE SE ENCONTRA NO MOMENTO
     private char MinhaLocAtual(){
         return labirinto[this.atual.getLinha()][this.atual.getColuna()];
     }
@@ -399,11 +319,27 @@ public class Labirinto implements Cloneable {
             }
             //CordLabADJ()
         }
-
+        RecuperaCordenadaInversa();
     }
 
-    public void CordLabADJ() throws Exception{
-        //Faço uma Fila de Cordenadas cabendo 3
+    // MÉTOD0 PARA
+    private void RecuperaCordenadaInversa() throws Exception{
+        inverso = new Pilha<Cordenada>(caminho.getUltimo());
+        while(!caminho.isVazia()){
+            inverso.guardeUmItem(caminho.recupereUmItem());
+            caminho.removaUmItem();
+        }
+        System.out.println("Esssa são as cordenadas que levam a saida");
+        while(!inverso.isVazia()){
+            System.out.println(inverso.recupereUmItem());
+            inverso.removaUmItem();
+        }
+        System.out.println("\n");
+    }
+
+    // MÉTODO PARA VERIFICAR A COORDENADA ADJCENTE DA FILA DE COORDENADAS
+    private void CordLabADJ() throws Exception{
+        // FAÇO UMA FILA DE CORDENADASD CABENDO 3
         this.filaDeAdjacencia = new Fila<Cordenada>(3);
         //Declara uma Cordenada e usa o Método cordCima() para retornar a cordenada de cima salvando ela na variavel
         Cordenada cord;
@@ -488,111 +424,23 @@ public class Labirinto implements Cloneable {
         return cord;
     }
 
+    @Override
+    public String toString() {
+        String str = "Labirinto: \n";
 
-
-    // VERIFICA LINHA ACIMAaa
-
-     /*       if()
-     Cordenada cord;
-     cord = cordCima();
-     if(getPosCima() == 'S' || getPosCima() == ' '){
-
-        this.filaDeAdjacencia.guardeUmItem(cord;
-
-      */
-
-    /*
-    for(int i = 0; i < this.qtdLinhas; i++){
-            for(int j = 0; j < this.qtdColunas; j++){
-                if(i == 0 || i == this.qtdLinhas -1){
-                    //Parede de cima e de baixo
-                    if(this.labirinto[i][j] == 'S'){
-                        cord2 = new Cordenada(i,j);
-
-                        // i = Linha = 0 = Linha de cima
-                        // j = Coluna = 0 = Coluna da esquerda
-
-                        //this.qtdLinhas = todas as linhas = linha de baixo
-                        //this.qtdColunas = todas as colunas = coluna da direita
-                    }
-                    if(this.labirinto[i][j] == ' '){
-                        throw new Exception("Não existe Paredes nas bordas");
-                    }
+        if(this.labirinto == null){
+            str = "Labirinto invalido";
+        }
+        else{
+            for(int i = 0; i < this.qtdLinhas; i++){
+                for(int j = 0; j < this.qtdColunas; j++){
+                    str += Character.toString(this.labirinto[i][j]);
                 }
-         */
-
-        /*
-              if (linhaAtual - 1 >= 0) // verifica se não estoura o array na parte de cima
-            {
-                if (labirinto[linhaAtual - 1][colunaAtual] == '.') // verifica se o passo de cima é '.'
-                {
-                    completaLab(linhaAtual - 1, colunaAtual);
-                }
-            }
-
-
-
-
-
-
-
-         */
-
-
-
-        /*
-              for (int i = 0; i < this.qtdLinhas -1; i++) {
-                for (int j = 0; j < this.qtdColunas -1; j++) {
-                    if (labirinto[i][j] != 'E' && labirinto[i][j] != 'S' && labirinto[i][j] != '#') {
-                        labirinto[i][j] = '*';
-                    }
-                }
-            }
-         */
-
-        /*
-        Pilha<Cordenada> caminho = new Pilha<>(this.qtdLinhas * this.qtdColunas);
-        Pilha<Fila<Cordenada>> posibilidades = new Pilha<>(this.qtdLinhas * this.qtdColunas);
-        Cordenada atual = new Cordenada(0, 0);
-        Fila<Cordenada> filaDeAdjacencia = new Fila<>(3);
-
-        for (int i = 0; i < labirinto.length; i++) {
-            for (int j = 0; j < labirinto.length; j++) {
-                if (labirinto[i][j] != 'E' && labirinto[i][j] != 'S' && labirinto[i][j] != '#') {
-                    caminho.guardeUmItem(new Cordenada(i, j));
-                    System.out.println(caminho);
-                }
+                str += "\n";
             }
         }
-       */
-
-
-
-    /*
-        public boolean passarBranco() throws Exception {
-        //atual.getLinha();
-        //atual.getColuna();
-        //int atual1 = 0;
-        for (int i = 0; i < labirinto.length-1; i++) {
-            for (int j = 0; j < labirinto.length-1; j++) {
-                if (labirinto[i][j] == 'E'){
-                    Cordenada atual = new Cordenada(i, j);
-                    Fila<Cordenada> filaDeAdjacencia = new Fila<>(3);
-
-                    labirinto[i][j+1] = '*';
-                    labirinto[i+1][j+1] = '*';
-                    //labirinto[j+1][i+1] = '*';
-                    //atual1 = labirinto[i][j];
-                    //atual1++;
-                    //System.out.println(atual1);
-                    System.out.println("pos: " + atual);
-                }
-            }
-        }
-        return false;
+        return str;
     }
-     */
-
 
     @Override
     public int hashCode(){

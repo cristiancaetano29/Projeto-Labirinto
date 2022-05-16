@@ -33,14 +33,14 @@ public class Labirinto implements Cloneable {
         this.qtdLinhas = qtdLinhas;
         this.qtdColunas = qtdColunas;
 
-        for(int i = 0; i < this.qtdLinhas; i++) {
+        /*for(int i = 0; i < this.qtdLinhas; i++) {
             for (int j = 0; j < this.qtdColunas; j++) {
                 if(this.qtdLinhas != this.qtdColunas){;
                     //System.out.println("O labirinto não é valido");
                     throw new Exception("O labirinto não é valido");
                 }
             }
-        }
+        }*/
 
         GerarMatrizDoLabirinto(arqLabirinto2);
     }
@@ -383,12 +383,13 @@ public class Labirinto implements Cloneable {
 
         while(MinhaLocAtual() != 'S'){
             CordLabADJ();
-            /*while(this.filaDeAdjacencia.isVazia()){
+            while(this.filaDeAdjacencia.isVazia()){
                 this.atual = caminho.recupereUmItem();
                 this.caminho.removaUmItem();
                 this.labirinto[this.atual.getLinha()][this.atual.getColuna()] = ' ';
+                this.filaDeAdjacencia = posibilidades.recupereUmItem();
                 this.posibilidades.removaUmItem();
-            }*/
+            }
             this.atual = this.filaDeAdjacencia.recupereUmItem();
             if(MinhaLocAtual() != 'S'){
                 this.filaDeAdjacencia.removaUmItem();

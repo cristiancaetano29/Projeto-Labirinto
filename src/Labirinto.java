@@ -454,17 +454,25 @@ public class Labirinto implements Cloneable {
         return lab;
     }
 
-/*    @Override
+    @Override
         public  boolean equals(Object obj){
             if (this == obj) return true;
             if (obj == null) return false;
 
             if (obj.getClass() != Labirinto.class) return false;
             Labirinto lab = (Labirinto) obj;
-           return   ;
 
-}
-*/
+            if (this.qtdColunas != lab.qtdColunas) return false;
+            if (this.qtdLinhas != lab.qtdLinhas) return false;
+
+            for(int i = 0; i < this.qtdLinhas; i++){
+                for(int j = 0; j < this.qtdColunas; j++){
+                    if (this.labirinto[i][j] != lab.labirinto[i][j]) return false;
+                }
+            }
+            return true;
+        }
+
     public int getQtdLinhas() {
         return this.qtdLinhas;
     }

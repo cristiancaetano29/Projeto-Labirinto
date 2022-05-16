@@ -7,12 +7,13 @@ public class TesteMain {
         try{
             System.out.println("Qual o nome do Arquivo?");
             String arquivo = Teclado.getUmString();
+
             Labirinto lab = new Labirinto(arquivo);
+            System.out.println(lab);
+
             lab.testLab();
-            //lab.andar(1,1);
-            //lab.andar(1,2);
-            //lab.andar(1,3);
-            //lab.passos();
+            System.out.println(lab);
+
             System.out.println("VerificandoLab: \n\n" + lab);
         }
         catch (Exception e){

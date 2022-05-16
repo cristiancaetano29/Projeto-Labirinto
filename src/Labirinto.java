@@ -280,10 +280,17 @@ public class Labirinto implements Cloneable {
             while(this.filaDeAdjacencia.isVazia()){
                 this.atual = caminho.recupereUmItem();
                 this.caminho.removaUmItem();
+                /*if(this.caminho == null){
+                    throw new Exception("Labirinto não tem saida");
+                }*/
                 this.labirinto[this.atual.getLinha()][this.atual.getColuna()] = ' ';
                 this.filaDeAdjacencia = posibilidades.recupereUmItem();
                 this.posibilidades.removaUmItem();
+                /*if(this.posibilidades == null){
+                    throw new Exception("Nehum caminho leva a soluçao");
+                }*/
             }
+
             this.atual = this.filaDeAdjacencia.recupereUmItem();
             if(MinhaLocAtual() != 'S'){
                 this.filaDeAdjacencia.removaUmItem();
@@ -439,7 +446,6 @@ public class Labirinto implements Cloneable {
         // VERIFICAR
         // this.labirinto = new char[lab.labirinto.length][];
         this.labirinto = lab.labirinto;
-
     }
 
     @Override

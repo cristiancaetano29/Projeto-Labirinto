@@ -4,17 +4,16 @@ public class Clonador<X>
 {
     public X clone (X x)
     {
-        // assim obtemos a classe da instância no objeto
-        // x, que, conforme sabemos, é a classe X, e a
-        // armazenamos no objeto chamado classe
+        // ASSIM OBTEMOS A CLASSE DA INSTÂNCIA NO OBJETO x,
+        // QUE, CONFORME SABEMOS, É A CLASSE X, E A ARMAZENAMOS NO OBJETO CHAMADO CLASSE
         Class<?> classe = x.getClass();
 
-        // null porque chamaremos um método sem parâmetros
+        // NULL PORQUE CHAMAREMOS UM MÉTODO SEM PARÂMETROS
         Class<?>[] tpsParmsForms = null;
 
-        // assim obtemos o método chamado clone, sem parâmetros,
-        // da Class<?> armazenada no objeto classe (sabemos que
-        // a classe é a classe X)
+        // ASSIM OBTEMOS O MÉTODO CHAMADO CLONE, SEM PARÂMETROS,
+        // DA CLASS<?> ARMAZENADA NO OBJETO CLASSSE (SABEMOS QUE
+        // A CLASSE É A CLASSE X)
         Method metodo=null;
         try
         {
@@ -23,10 +22,10 @@ public class Clonador<X>
         catch (NoSuchMethodException erro)
         {}
 
-        // null porque chamaremos um método sem parâmetros
+        // NULL PORQUE CHAMAREMOS UM MÉTODO SEM PARÂMETROS
         Object[] parmsReais = null;
 
-        // assim chamamos o método armazenado no objeto chamado
+        // ASSIM CHAMAMOS O  armazenado no objeto chamado
         // método, fazendo com que o objeto chamado x seja para
         // ele o objeto chamante (o this) e fazendo com que
         // receba nao receba parâmetros reais (por isso o vetor
@@ -49,4 +48,3 @@ public class Clonador<X>
         return ret;
     }
 }
-

@@ -14,65 +14,51 @@ public class Labirinto implements Cloneable {
 
 
     public Labirinto(String Arquivo) throws Exception {
-        //Pega o arquivo do labirinto
+        // PEGA O ARQUIVO DO LABIRINTO
         Arquivo arqLabirinto = new Arquivo(Arquivo);
-        //Pega a quantidade de linhas e colunas do labirinto
-        //tenho que ter uma copia do labirinto para não perder o labirinto original
+
+        // PEGA A QUANTIDADE DE LINHAS E COLUNAS DO LABIRINTO
+        // !! TENHO QUE TER UMA CÓPIA DO LABIRINTO PARA NÃO PERDER O LABIRINTO ORIGINAL
         Arquivo arqLabirinto2 = new Arquivo(Arquivo);
-        //Pega o indice da primeira linha do labirinto
+
+        // PEGA O INDICE DA PRIMEIRA LINHA DO LABIRINTO
         int qtdLinhas = arqLabirinto.getUmInt();
-        //System.out.println("Linhas: " + qtdLinhas);
+
         //Pega a segunda Linha do labirinto
         String str = arqLabirinto.getUmaString();
-        //System.out.println("LinhaCompleta: " + str);
-        //retorna a quantidade de caracteres para realizar as verificações
-        int qtdColunas = str.length();
-        //System.out.println("Colunas: " + qtdColunas);
 
+        // RETORNA A QUANTIDADE DE CARACTERES PARA REALIZAR AS VERIFICAÇÕES
+        int qtdColunas = str.length();
         this.qtdLinhas = qtdLinhas;
         this.qtdColunas = qtdColunas;
-
-        /*for(int i = 0; i < this.qtdLinhas; i++) {
-            for (int j = 0; j < this.qtdColunas; j++) {
-                if(this.qtdLinhas != this.qtdColunas){;
-                    //System.out.println("O labirinto não é valido");
-                    throw new Exception("O labirinto não é valido");
-                }
-            }
-        }*/
-
         GerarMatrizDoLabirinto(arqLabirinto2);
     }
-//Teste1.txt
-    //C:\Users\Cristian\Desktop\C0tuca\Terceiro Semestre\TCC\Labirintos corretos para teste\
 
     public void GerarMatrizDoLabirinto(Arquivo LabCop) {
         try{
-            //System.out.println("CopiaIndice: " + LabCop.getUmInt() + "\n" + "Segunda Linha: " + LabCop.getUmaString());
             String srt = null;
-            //Pego o indice da primeira linha do labirinto
+
+            // É PEGO O INDICE DA PRIMEIRA LINHA DO LABIRINTO
             LabCop.getUmInt();
-            //Crio uma matriz para armazenar o labirinto com os dados
+
+            // É CRIADO UMA MATRIZ PARA ARMAZENAR  O LABIRINTO COM OS DADOS
             this.labirinto = new char[this.qtdLinhas][this.qtdColunas];
-            //System.out.println("Linhas: " + this.qtdLinhas + " Colunas: " + this.qtdColunas );
-            //Percorro o labirinto pegando cada linha dele
-            //System.out.println(this.labirinto.length);
-            //System.out.println("Linhas: " + this.qtdLinhas + " Colunas: " + this.qtdColunas );
+
+            // É PERCORRIDO O LABIRINTO PEGANDO CADA LINHA
             for(int i = 0; i < this.qtdLinhas; i++){
                 srt = LabCop.getUmaString();
-                //System.out.println("Linha: "+ i + " " + srt);
-                //Percorro a linha pegando cada caracter
+
+                // É PERCORRIDO O LABIRINTO PEGANDO CADA CARACTER
                 for (int j = 0; j < this.qtdColunas; j++){
                     this.labirinto[i][j] = srt.charAt(j);
-                    //System.out.println("Linha: "+ i + " " + "Coluna: " + j + this.labirinto[i][j]);
                     Cordenada cor = new Cordenada(i, j);
-                   //System.out.println(cor + srt);
                 }
             }
-
         }
         catch (Exception erro)
-        { }//Não vai dar erro pois o arquivo é valido
+        {
+            // NÃO VAI DAR ERRO POIS O ARQUIVO É VALIDO
+        }
     }
 
     // VERIFCA SE EXISTE UMA SAIDA
@@ -87,6 +73,7 @@ public class Labirinto implements Cloneable {
         return false;
     }
 
+    // VERIFCA SE EXISTE UMA ENTRADA
     public boolean temEntrada(){
         for (int i = 0; i < this.qtdLinhas; i++) {
             for (int j = 0; j < this.qtdColunas; j++) {
@@ -98,7 +85,7 @@ public class Labirinto implements Cloneable {
         return false;
     }
 
-    //Verificar a quantidade de entradas e saidas
+    // VERIFCA SE EXISTE MAIS DE UMA ENTRADA
     public boolean qtdEntradas(){
         int entradas = 0;
         for (int i = 0; i < this.qtdLinhas; i++) {
@@ -114,6 +101,7 @@ public class Labirinto implements Cloneable {
         return true;
     }
 
+    // VERIFCA SE EXISTE MAIS DE UMA SAIDA
     public boolean qtdSaidas() {
         int saidas = 0;
         for (int i = 0; i < this.qtdLinhas; i++) {
@@ -126,10 +114,10 @@ public class Labirinto implements Cloneable {
         if (saidas != 1) {
             return false;
         }
-
         return true;
     }
 
+    //  VERIFCA CARACTER DIFERENTE AOS QUE PEDE, NO CASO 'E' - 'S' - '#' - ' '
     public boolean carterDiferente(){
         for (int i = 0; i < this.qtdLinhas; i++) {
             for (int j = 0; j < this.qtdColunas; j++) {
@@ -146,27 +134,21 @@ public class Labirinto implements Cloneable {
         return labirinto[this.atual.getLinha()][this.atual.getColuna()];
     }
 
-    //Acha a Loc E
+    // ACHA A POSIÇÃO DO 'E'
     private Cordenada cordE() throws Exception{
         Cordenada cord = null;
         for(int i = 0; i < this.qtdLinhas; i++){
             for(int j = 0; j < this.qtdColunas; j++){
                 if(i == 0 || i == this.qtdLinhas-1){
-                    //Parede de cima e de baixo
+                    // PAREDE DE CIMA E DE BAIXO
                     if(this.labirinto[i][j] == 'E'){
                         cord = new Cordenada(i,j);
-
-                        // i = Linha = 0 = Linha de cima
-                        // j = Coluna = 0 = Coluna da esquerda
-
-                        //this.qtdLinhas = todas as linhas = linha de baixo
-                        //this.qtdColunas = todas as colunas = coluna da direita
                     }
                     if(this.labirinto[i][j] == ' '){
                         throw new Exception("Não existe Paredes nas bordas");
                     }
                 }
-                //Parede da esquerda e da direita
+                // PAREDE DA ESQUERDA E DA DIREITA
                 if(j == 0 || j == this.qtdColunas -1){
                     if(this.labirinto[i][j] == 'E'){
                         cord = new Cordenada(i,j);
@@ -182,27 +164,21 @@ public class Labirinto implements Cloneable {
     }
 
 
-    //Acha a Loc S
+    // ACHA A POSIÇÃO DO 'S'
     private Cordenada cordS() throws Exception{
         Cordenada cord2 = null;
         for(int i = 0; i < this.qtdLinhas; i++){
             for(int j = 0; j < this.qtdColunas; j++){
                 if(i == 0 || i == this.qtdLinhas -1){
-                    //Parede de cima e de baixo
+                    // PAREDE DE CIMA E DE BAIXO
                     if(this.labirinto[i][j] == 'S'){
                         cord2 = new Cordenada(i,j);
-
-                        // i = Linha = 0 = Linha de cima
-                        // j = Coluna = 0 = Coluna da esquerda
-
-                        //this.qtdLinhas = todas as linhas = linha de baixo
-                        //this.qtdColunas = todas as colunas = coluna da direita
                     }
                     if(this.labirinto[i][j] == ' '){
                         throw new Exception("Não existe Paredes nas bordas");
                     }
                 }
-                //Parede da esquerda e da direita
+                // PAREDE DA ESQUERDA E DA DIREITA
                 if(j == 0 || j == this.qtdColunas -1){
                     if(this.labirinto[i][j] == 'S'){
                         cord2 = new Cordenada(i,j);
@@ -215,13 +191,6 @@ public class Labirinto implements Cloneable {
             }
         }
         return cord2;
-    }
-
-    public boolean validarLocalizacao(int colum, int linha) {
-        if (colum < 0 || colum >= getQtdColunas() || linha < 0 || linha >= getQtdLinhas()) {
-            return false;
-        }
-        return true;
     }
 /*
     public void testLab() throws Exception {
@@ -270,15 +239,17 @@ public class Labirinto implements Cloneable {
         }
     }*/
 
+
+    // MÉTODO PARA TESTE
     public void testLab() throws Exception{
+        if(!temEntrada()) {
+            throw new Exception("Labirinto não tem entrada");
+        }
+
         if(!temSaida()) {
             throw new Exception("Labirinto não tem saida");
         }
         this.atual = new Cordenada(cordE());
-
-        if(!temEntrada()) {
-            throw new Exception("Labirinto não tem entrada");
-        }
 
         if(!qtdEntradas()) {
             throw new Exception("Labirinto não tem uma unica entrada");
@@ -287,20 +258,23 @@ public class Labirinto implements Cloneable {
         if(!qtdSaidas()) {
             throw new Exception("Labirinto não tem uma unica saida");
         }
-        //validarLocalizacao(this.qtdColunas, this.qtdLinhas);
 
         if(!carterDiferente()){
             throw new Exception("Labirinto tem carter diferente de: 'E' -- 'S' -- ' ' ");
         }
-        //cordE();
 
+        // ESTANCIANDO OBJETO DA CLASSE PILHA E GUARDANDO EM PILHA DE CORDENADAS
         this.caminho = new Pilha<Cordenada>(getQtdLinhas() * getQtdColunas());
-        this.posibilidades = new Pilha<Fila<Cordenada>>(getQtdLinhas() * getQtdColunas());
-        //this.atual = filaDeAdjacencia.recupereUmItem();
-        //this.atual = new Cordenada(cordE());
-        //this.atual = caminho.recupereUmItem();
-        //System.out.println("Atual: " + this.atual);
 
+        // ESTANCIANDO OBJETO DA CLASSE PILHA E GUARDANDO EM FILHA DE PILHA DE CORDENADAS
+        this.posibilidades = new Pilha<Fila<Cordenada>>(getQtdLinhas() * getQtdColunas());
+
+//        System.out.println("Entrada: " + this.atual);
+//        System.out.println("Saida: " + cordS());
+//        System.out.println("Cord E: " + cordE());
+//        System.out.println("Loc Atual: " + MinhaLocAtual());
+
+        // WHILE PARA SEMPRE RETORNAR(ENTRAR EM LOOP) ENQUANTO OS CARACTERES FOREM DIFERENTES DE S
         while(MinhaLocAtual() != 'S'){
             CordLabADJ();
             while(this.filaDeAdjacencia.isVazia()){
@@ -317,7 +291,6 @@ public class Labirinto implements Cloneable {
                 this.caminho.guardeUmItem(this.atual);
                 this.posibilidades.guardeUmItem(this.filaDeAdjacencia);
             }
-            //CordLabADJ()
         }
         RecuperaCordenadaInversa();
     }
@@ -341,7 +314,7 @@ public class Labirinto implements Cloneable {
     private void CordLabADJ() throws Exception{
         // FAÇO UMA FILA DE CORDENADASD CABENDO 3
         this.filaDeAdjacencia = new Fila<Cordenada>(3);
-        //Declara uma Cordenada e usa o Método cordCima() para retornar a cordenada de cima salvando ela na variavel
+        // DECLARA UMA CORDENADA E USA O MÉTODO cordCima() PARA RETORNAR A CORDENADA DE CIMA SALVANDO-A NA VARIAVEL
         Cordenada cord;
         cord = cordCima();
         // VERIFICA CHAR NA POSIÇÃO ACIMA
@@ -357,7 +330,6 @@ public class Labirinto implements Cloneable {
                 this.filaDeAdjacencia.guardeUmItem(cord);
             }
         }
-
         // VERIFICA CHAR NA POSIÇÃO A DIREITA
         cord = cordDireita();
         if(cord != null) {
@@ -365,7 +337,6 @@ public class Labirinto implements Cloneable {
                 this.filaDeAdjacencia.guardeUmItem(cord);
             }
         }
-
         // VERIFICA CHAR NA POSIÇÃO A ESQUERDA
         cord = cordEsquerda();
         if(cord != null) {
@@ -373,9 +344,9 @@ public class Labirinto implements Cloneable {
                 this.filaDeAdjacencia.guardeUmItem(cord);
             }
         }
-
     }
 
+    // MÉTODOS PARA VERIFICAR POSIÇÕES REFERENTE AS CORDENADAS ACEITAS
     private Cordenada cordCima() throws Exception{
         Cordenada cord = null;
         try{
@@ -383,7 +354,6 @@ public class Labirinto implements Cloneable {
         }
         catch (Exception erro){
             return null;
-            //throw new Exception("Erro ao tentar pegar cordenada");
         }
         return cord;
     }
@@ -395,7 +365,6 @@ public class Labirinto implements Cloneable {
         }
         catch (Exception erro){
             return null;
-            //throw new Exception("Erro ao tentar pegar cordenada");
         }
         return cord;
     }
@@ -407,7 +376,6 @@ public class Labirinto implements Cloneable {
         }
         catch (Exception erro){
             return null;
-            //throw new Exception("Erro ao tentar pegar cordenada");
         }
         return cord;
     }
@@ -418,7 +386,6 @@ public class Labirinto implements Cloneable {
             cord = new Cordenada(this.atual.getLinha(), this.atual.getColuna() + 1);
         }
         catch (Exception erro){
-            //throw new Exception("Erro ao tentar pegar cordenada");
             return null;
         }
         return cord;
@@ -462,17 +429,16 @@ public class Labirinto implements Cloneable {
 
 
     // CONSTRUTOR DE CÓPIA
-        public Labirinto (Labirinto lab) throws Exception{
-            if (lab == null){
-                throw new Exception("Arquivo nulo");
-            }
-            this.qtdLinhas = lab.qtdLinhas;
-            this.qtdColunas = lab.qtdColunas;
+    public Labirinto (Labirinto lab) throws Exception{
+        if (lab == null){
+            throw new Exception("Arquivo nulo");
+        }
+        this.qtdLinhas = lab.qtdLinhas;
+        this.qtdColunas = lab.qtdColunas;
 
-
-            // VERIFICAR
-            // this.labirinto = new char[lab.labirinto.length][];
-            this.labirinto = lab.labirinto;
+        // VERIFICAR
+        // this.labirinto = new char[lab.labirinto.length][];
+        this.labirinto = lab.labirinto;
 
     }
 
@@ -507,10 +473,10 @@ public class Labirinto implements Cloneable {
         return this.qtdColunas;
     }
 
-    //Métodos para pegar o que tem em cada posição
+    // MÉTODOS PARA PEGAR O QUE TEM EM CADA POSIÇÃO
     private char getPosCima(){
         return this.labirinto[this.atual.getLinha()-1][this.atual.getColuna()];
-}
+    }
 
     private char getPosBaixo(){
         return this.labirinto[this.atual.getLinha()+1][this.atual.getColuna()];
@@ -523,6 +489,5 @@ public class Labirinto implements Cloneable {
     private char getPosDireita(){
         return this.labirinto[this.atual.getLinha()][this.atual.getColuna()+1];
     }
-
 }
 

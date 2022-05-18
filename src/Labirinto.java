@@ -35,6 +35,7 @@ public class Labirinto implements Cloneable {
         // RETORNA A QUANTIDADE DE CARACTERES PARA REALIZAR AS VERIFICAÇÕES
         this.qtdLinhas = qtdLinhas;
         this.qtdColunas = qtdColunas;
+
         GerarMatrizDoLabirinto(arqLabirinto2);
     }
 

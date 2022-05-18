@@ -26,12 +26,33 @@ public class Labirinto implements Cloneable {
 
         //Pega a segunda Linha do labirinto
         String str = arqLabirinto.getUmaString();
+        int qtdColunas = str.length();
+
+        if(!labValido(qtdLinhas, qtdColunas, arqLabirinto)){
+            throw new Exception("Labirinto Invalido");
+        }
 
         // RETORNA A QUANTIDADE DE CARACTERES PARA REALIZAR AS VERIFICAÇÕES
-        int qtdColunas = str.length();
         this.qtdLinhas = qtdLinhas;
         this.qtdColunas = qtdColunas;
         GerarMatrizDoLabirinto(arqLabirinto2);
+    }
+
+    //C:\Users\Cristian\Desktop\C0tuca\Terceiro Semestre\TCC\Labirintos errados para teste\TamanhosDeLinhaErrados.txt
+    //C:\Users\Cristian\Desktop\C0tuca\Terceiro Semestre\TCC\Labirintos corretos para teste\Teste2.txt
+
+
+    private boolean labValido(int linha, int coluna, Arquivo arq) throws Exception{
+        String linhas;
+        int col;
+        for(int i = 2; i < linha; i++) {
+            linhas = arq.getUmaString();
+            col = linhas.length();
+            if(col != coluna) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void GerarMatrizDoLabirinto(Arquivo LabCop) {

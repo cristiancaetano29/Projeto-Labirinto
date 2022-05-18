@@ -28,7 +28,6 @@ public class Cordenada {
                 ')';
     }
 
-
     public boolean equals(Object obj) {
         if (this == obj)
             return true;

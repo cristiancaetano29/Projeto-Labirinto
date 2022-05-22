@@ -1,23 +1,20 @@
 # Projeto-Labirinto
 
-## Images From Test
-
-### IMAGES:
-
-<div align=center><img alt="IMAGE" src="https://github.com/cristiancaetano29/Projeto-Labirinto/blob/master/Images/Error1-2022-05-11%20030749.png" width="600"/></div>
+Projeto Desenvolvido em grupo, para colocar em prática as técnicas aprendida em Estrutura de Dados I,<br>
+Foi ultilizadas as classes Desenvolvidas em aula: Pilha & Fila.
 
 ##
 
-<div align=center><img alt="IMAGE" src="https://github.com/cristiancaetano29/Projeto-Labirinto/blob/master/Images/Error2-2022-05-11%20031015.png" width="600"/></div>
+### Modificações Futuras: 
+
+* [-] Implementar Sockets para estabelecer conexão em rede
+* [-] Melhorar o código
 
 ##
 
-<div align=center><img alt="IMAGE" src="https://github.com/cristiancaetano29/Projeto-Labirinto/blob/master/Images/Error3-2022-05-11%20031427.png" width="600"/></div>
+### Desenvolvedores:
 
-##
-
-<div align=center><img alt="IMAGE" src="https://github.com/cristiancaetano29/Projeto-Labirinto/blob/master/Images/Error4-2022-05-11%20031517.png" width="600"/></div>
-
-##
-
-<div align=center><img alt="IMAGE" src="https://github.com/cristiancaetano29/Projeto-Labirinto/blob/master/Images/Working-2022-05-11%20030612.png" width="600"/></div>
+* **Cristian Caetano** - **Desenvolvedor** - [GitHub](https://github.com/cristiancaetano29)
+* **Ana ghirali** - **Desenvolvedor** - [GitHub](https://github.com/Anaghirali)
+* **Diogo Rodrigues** - **Desenvolvedor** - [GitHub](https://github.com/diogoramosr)
+* **Gabriel Perozim** - **Desenvolvedor** - [GitHub](https://github.com/gabrielfxz)

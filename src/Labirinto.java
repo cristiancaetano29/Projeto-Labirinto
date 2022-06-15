@@ -39,10 +39,6 @@ public class Labirinto implements Cloneable {
         GerarMatrizDoLabirinto(arqLabirinto2);
     }
 
-    //C:\Users\Cristian\Desktop\C0tuca\Terceiro Semestre\TCC\Labirintos errados para teste\TamanhosDeLinhaErrados.txt
-    //C:\Users\Cristian\Desktop\C0tuca\Terceiro Semestre\TCC\Labirintos corretos para teste\Teste2.txt
-
-
     private boolean labValido(int linha, int coluna, Arquivo arq) throws Exception{
         String linhas;
         int col;
@@ -214,53 +210,6 @@ public class Labirinto implements Cloneable {
         }
         return cord2;
     }
-/*
-    public void testLab() throws Exception {
-        if (!temSaida()) {
-            throw new Exception("Labirinto não tem saida");
-        }
-
-        this.atual = new Cordenada(cordE());
-
-        if (!temEntrada()) {
-            throw new Exception("Labirinto não tem entrada");
-        }
-
-        if (!qtdEntradas()) {
-            throw new Exception("Labirinto não tem uma unica entrada");
-        }
-
-        if (!qtdSaidas()) {
-            throw new Exception("Labirinto não tem uma unica saida");
-        }
-        //validarLocalizacao(this.qtdColunas, this.qtdLinhas);
-
-        if (!carterDiferente()) {
-            throw new Exception("Labirinto tem carter diferente de: 'E' -- 'S' -- ' ' ");
-        }
-        //cordE();
-
-
-        this.caminho = new Pilha<Cordenada>(getQtdLinhas() * getQtdColunas());
-        this.posibilidades = new Pilha<Fila<Cordenada>>(getQtdLinhas() * getQtdColunas());
-
-
-        System.out.println("Entrada: " + this.atual);
-        System.out.println("Saida: " + cordS());
-        System.out.println("Cord E: " + cordE());
-        System.out.println("Loc Atual: " + MinhaLocAtual());
-
-        CordLabADJ();
-        while (MinhaLocAtual() == 'E' && MinhaLocAtual() != 'S') {
-            this.atual = this.filaDeAdjacencia.recupereUmItem();
-            if (MinhaLocAtual() == ' ' && MinhaLocAtual() != 'S') {
-                this.filaDeAdjacencia.removaUmItem();
-                this.labirinto[this.atual.getLinha()][this.atual.getColuna()] = '*';
-                this.posibilidades.guardeUmItem(this.filaDeAdjacencia);
-            }
-        }
-    }*/
-
 
     // MÉTODO PARA TESTE
     public void testLab() throws Exception{
@@ -290,11 +239,6 @@ public class Labirinto implements Cloneable {
 
         // ESTANCIANDO OBJETO DA CLASSE PILHA E GUARDANDO EM FILHA DE PILHA DE CORDENADAS
         this.posibilidades = new Pilha<Fila<Cordenada>>(getQtdLinhas() * getQtdColunas());
-
-//        System.out.println("Entrada: " + this.atual);
-//        System.out.println("Saida: " + cordS());
-//        System.out.println("Cord E: " + cordE());
-//        System.out.println("Loc Atual: " + MinhaLocAtual());
 
         // WHILE PARA SEMPRE RETORNAR(ENTRAR EM LOOP) ENQUANTO OS CARACTERES FOREM DIFERENTES DE S
         while(MinhaLocAtual() != 'S'){
